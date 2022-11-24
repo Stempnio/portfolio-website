@@ -15,12 +15,9 @@ class Projects extends StatelessWidget {
           horizontal:
               ResponsiveLayout.isDesktop(context) ? screenWidth * 0.1 : 0),
       child: Container(
-        decoration: const BoxDecoration(
-          color: Colors.grey,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
-          ),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(colors: [Colors.grey, Colors.blueGrey]),
+          borderRadius: BorderRadius.circular(30),
         ),
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -38,12 +35,26 @@ class Projects extends StatelessWidget {
                 spacing: 20,
                 runSpacing: 20,
                 children: [
-                  ProjectCard(),
-                  ProjectCard(),
-                  ProjectCard(),
-                  ProjectCard(),
-                  ProjectCard(),
-                  ProjectCard(),
+                  ProjectCard(
+                    appName: "App 1",
+                    appDescription: "Description of app 1",
+                  ),
+                  ProjectCard(
+                    appName: "App 1",
+                    appDescription: "Description of app 1",
+                  ),
+                  ProjectCard(
+                    appName: "App 1",
+                    appDescription: "Description of app 1",
+                  ),
+                  ProjectCard(
+                    appName: "App 1",
+                    appDescription: "Description of app 1",
+                  ),
+                  ProjectCard(
+                    appName: "App 1",
+                    appDescription: "Description of app 1",
+                  ),
                 ],
               ),
             ],
