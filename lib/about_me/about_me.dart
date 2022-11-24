@@ -7,38 +7,47 @@ class AboutMe extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
+      padding: EdgeInsets.symmetric(
+          vertical: ResponsiveLayout.isDesktop(context) ? 30 : 5,
+          horizontal: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Hello there!",
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-              SizedBox(
-                height: ResponsiveLayout.isDesktop(context) ? 50 : 20,
-              ),
-              const SizedBox(
-                width: 200,
-                child: Text(
-                  "My name is Kuba and im blahblah blahblah blahblah blahblah blahblah blahblah blahblah blahblah blahblah blahblah",
-                  style: TextStyle(
-                    fontSize: 17,
-                    color: Colors.black54,
+          Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Hello there!",
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+                SizedBox(
+                  height: ResponsiveLayout.isDesktop(context) ? 40 : 20,
+                ),
+                ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 250),
+                  child: const Text(
+                    '''My name is Kuba and i'm passionate about mobile development, especially Flutter.''',
+                    style: TextStyle(
+                      fontSize: 17,
+                      color: Colors.black54,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-          SizedBox(width: ResponsiveLayout.isDesktop(context) ? 70 : 0),
-          SizedBox(
-            height: ResponsiveLayout.isDesktop(context) ? 300 : 200,
-            width: ResponsiveLayout.isDesktop(context) ? 300 : 200,
-            child: const CircleAvatar(
-              backgroundImage: AssetImage("assets/profile.png"),
+          if (ResponsiveLayout.isDesktop(context)) const SizedBox(width: 60),
+          Flexible(
+            child: ClipOval(
+              child: Container(
+                constraints: const BoxConstraints(
+                  maxHeight: 300,
+                  maxWidth: 300,
+                ),
+                color: Colors.blueAccent,
+                child: Image.asset("assets/profile.png"),
+              ),
             ),
           ),
         ],
