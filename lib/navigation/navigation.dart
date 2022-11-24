@@ -18,8 +18,8 @@ class NavButton extends StatelessWidget {
   }
 }
 
-class OutlineNavButton extends StatelessWidget {
-  const OutlineNavButton({
+class ElevatedNavButton extends StatelessWidget {
+  const ElevatedNavButton({
     Key? key,
     required this.scrollTo,
     required this.text,
@@ -29,8 +29,8 @@ class OutlineNavButton extends StatelessWidget {
   final String text;
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton(
-      onPressed: () {},
+    return ElevatedButton(
+      onPressed: scrollTo,
       child: Text(text),
     );
   }
