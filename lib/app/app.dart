@@ -4,6 +4,7 @@ import 'package:portfolio_website/about_me/about_me.dart';
 import 'package:portfolio_website/app_bar/app_bar.dart';
 import 'package:portfolio_website/contact_me/contact_me.dart';
 import 'package:portfolio_website/projects/projects.dart';
+import 'package:portfolio_website/responsive_layout.dart';
 import 'package:portfolio_website/tech_stack/tech_stack.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:portfolio_website/navigation/navigation.dart';
@@ -87,7 +88,10 @@ class _AppState extends State<App> with SingleTickerProviderStateMixin {
             BlocBuilder<PortfolioAppBarCubit, PortfolioAppBarState>(
               builder: (context, state) {
                 return AnimatedOpacity(
-                  opacity: state.mobileMenuVisible ? 1 : 0,
+                  opacity: state.mobileMenuVisible &&
+                          ResponsiveLayout.isMobile(context)
+                      ? 1
+                      : 0,
                   duration: const Duration(milliseconds: 400),
                   child: Container(
                     color: Theme.of(context).scaffoldBackgroundColor,
