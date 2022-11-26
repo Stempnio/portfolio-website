@@ -11,6 +11,7 @@ void main() {
     'password-keeper',
     'review-exchange',
     'airport-management-system',
+    'ml-tumor-classification',
     'pseudo-random-number-generators',
     'file-versioning-tool',
   ];
