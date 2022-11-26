@@ -11,11 +11,10 @@ class ContactMe extends StatelessWidget {
 
   Future<void> _launchUrl(String url) async {
     final uri = Uri.parse(url);
-    if (kDebugMode) {
-      print(uri.isScheme('https'));
-    }
     if (!await launchUrl(uri)) {
-      print("problem");
+      if (kDebugMode) {
+        print("error while launching url");
+      }
     }
   }
 
@@ -49,39 +48,33 @@ class ContactMe extends StatelessWidget {
             spacing: 15,
             runSpacing: 15,
             children: [
-              GestureDetector(
+              IconTile(
+                showText: ResponsiveLayout.isDesktop(context),
+                icon: FontAwesomeIcons.linkedin,
+                iconColor: Colors.white,
+                text: "Linkedin",
+                textColor: Colors.white,
+                backgroundColor: Colors.blueAccent,
                 onTap: () =>
                     _launchUrl("https://www.linkedin.com/in/jakub--stepien/"),
-                child: IconTile(
-                  showText: ResponsiveLayout.isDesktop(context),
-                  icon: FontAwesomeIcons.linkedin,
-                  iconColor: Colors.white,
-                  text: "Linkedin",
-                  textColor: Colors.white,
-                  backgroundColor: Colors.blueAccent,
-                ),
               ),
-              GestureDetector(
+              IconTile(
+                showText: ResponsiveLayout.isDesktop(context),
+                icon: FontAwesomeIcons.twitter,
+                iconColor: Colors.white,
+                text: "Twitter",
+                textColor: Colors.white,
+                backgroundColor: Colors.blue,
                 onTap: () => _launchUrl("https://www.twitter.com/_Stempnio"),
-                child: IconTile(
-                  showText: ResponsiveLayout.isDesktop(context),
-                  icon: FontAwesomeIcons.twitter,
-                  iconColor: Colors.white,
-                  text: "Twitter",
-                  textColor: Colors.white,
-                  backgroundColor: Colors.blue,
-                ),
               ),
-              GestureDetector(
+              IconTile(
+                showText: ResponsiveLayout.isDesktop(context),
+                icon: FontAwesomeIcons.github,
+                iconColor: Colors.white,
+                text: "Github",
+                textColor: Colors.white,
+                backgroundColor: Colors.black54,
                 onTap: () => _launchUrl("https://www.github.com/stempnio"),
-                child: IconTile(
-                  showText: ResponsiveLayout.isDesktop(context),
-                  icon: FontAwesomeIcons.github,
-                  iconColor: Colors.white,
-                  text: "Github",
-                  textColor: Colors.white,
-                  backgroundColor: Colors.black54,
-                ),
               ),
             ],
           ),
