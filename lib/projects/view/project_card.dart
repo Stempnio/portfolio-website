@@ -4,17 +4,24 @@ import 'package:portfolio_website/responsive_layout.dart';
 class ProjectCard extends StatelessWidget {
   const ProjectCard({
     Key? key,
-    required this.appName,
-    required this.appDescription,
+    required this.name,
+    required this.description,
+    required this.imageAssetName,
+    required this.btnOnTap,
   }) : super(key: key);
 
-  final String appName;
-  final String appDescription;
+  final String name;
+  final String description;
+  final String imageAssetName;
+  final VoidCallback btnOnTap;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: ResponsiveLayout.isDesktop(context) ? 300 : double.infinity,
+    final screenWidth = MediaQuery.of(context).size.width;
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxWidth: ResponsiveLayout.isDesktop(context) ? 300 : screenWidth * 0.9,
+      ),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
@@ -28,24 +35,36 @@ class ProjectCard extends StatelessWidget {
             children: [
               Align(
                 alignment: Alignment.center,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
-                  child: Image.network(
-                    "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg",
+                child: Container(
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.2),
+                        spreadRadius: 5,
+                        blurRadius: 5,
+                      ),
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: Image.asset(imageAssetName),
                   ),
                 ),
               ),
               const SizedBox(height: 15),
-              Text(
-                appName,
-                style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: Colors.black54),
+              FittedBox(
+                fit: BoxFit.fitWidth,
+                child: Text(
+                  name,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Colors.black54),
+                ),
               ),
               const SizedBox(height: 5),
               Text(
-                appDescription,
+                description,
                 style: const TextStyle(
                   fontSize: 16,
                   color: Colors.black54,
@@ -59,8 +78,8 @@ class ProjectCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
+                onPressed: btnOnTap,
                 child: const Text("see details"),
-                onPressed: () {},
               ),
             ],
           ),
