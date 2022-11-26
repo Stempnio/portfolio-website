@@ -6,9 +6,11 @@ class ProjectsList extends StatelessWidget {
   const ProjectsList({
     Key? key,
     required this.projects,
+    this.loading = false,
   }) : super(key: key);
 
   final List<Project> projects;
+  final bool loading;
   @override
   Widget build(BuildContext context) {
     return Wrap(
@@ -17,10 +19,13 @@ class ProjectsList extends StatelessWidget {
       children: projects
           .map(
             (project) => ProjectCard(
-              name: project.repository.name.replaceAll('-', ' '),
-              description: project.repository.description,
-              imageAssetName: project.imageAssetName,
+              name: loading
+                  ? "Loading"
+                  : project.repository.name.replaceAll('-', ' '),
+              description: loading ? "" : project.repository.description,
+              imageAssetName: loading ? "" : project.imageAssetName,
               btnOnTap: () => launchUrl(Uri.parse(project.repository.htmlUrl)),
+              loading: loading,
             ),
           )
           .toList(),

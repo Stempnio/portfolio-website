@@ -37,8 +37,10 @@ class Projects extends StatelessWidget {
               BlocBuilder<ProjectsBloc, ProjectsState>(
                 builder: (context, state) {
                   if (state.status == ProjectsStatus.loading) {
-                    //TODO: loading screen
-                    return Text("Loading");
+                    return ProjectsList(
+                      projects: state.projects,
+                      loading: true,
+                    );
                   } else if (state.status == ProjectsStatus.success) {
                     // return Text("success");
                     return ProjectsList(projects: state.projects);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:portfolio_website/responsive_layout.dart';
 
 class ProjectCard extends StatelessWidget {
@@ -8,12 +9,27 @@ class ProjectCard extends StatelessWidget {
     required this.description,
     required this.imageAssetName,
     required this.btnOnTap,
+    this.loading = false,
   }) : super(key: key);
 
   final String name;
   final String description;
   final String imageAssetName;
   final VoidCallback btnOnTap;
+  final bool loading;
+
+  Widget loadingSpinner() => ConstrainedBox(
+        constraints: const BoxConstraints(minHeight: 200),
+        child: SpinKitFadingCube(
+          itemBuilder: (BuildContext context, int index) {
+            return DecoratedBox(
+              decoration: BoxDecoration(
+                color: index.isEven ? Colors.blueAccent : Colors.blueGrey,
+              ),
+            );
+          },
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +63,9 @@ class ProjectCard extends StatelessWidget {
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(15),
-                    child: Image.asset(imageAssetName),
+                    child: loading
+                        ? loadingSpinner()
+                        : Image.asset(imageAssetName),
                   ),
                 ),
               ),
@@ -78,7 +96,7 @@ class ProjectCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                onPressed: btnOnTap,
+                onPressed: loading ? null : btnOnTap,
                 child: const Text("see details"),
               ),
             ],
