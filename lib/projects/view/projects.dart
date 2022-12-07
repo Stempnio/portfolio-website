@@ -10,12 +10,11 @@ class Projects extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final isDesktop = ResponsiveLayout.isDesktop(context);
 
     return Padding(
       padding: EdgeInsets.symmetric(
-          vertical: 50,
-          horizontal:
-              ResponsiveLayout.isDesktop(context) ? screenWidth * 0.1 : 0),
+          vertical: 50, horizontal: isDesktop ? screenWidth * 0.1 : 0),
       child: Container(
         decoration: BoxDecoration(
           gradient:
@@ -46,7 +45,7 @@ class Projects extends StatelessWidget {
                     return ProjectsList(projects: state.projects);
                   } else {
                     //TODO: failure screen
-                    return Text("failure");
+                    return const Text("failure");
                   }
                 },
               ),

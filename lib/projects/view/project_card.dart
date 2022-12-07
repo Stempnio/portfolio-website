@@ -34,9 +34,10 @@ class ProjectCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final isDesktop = ResponsiveLayout.isDesktop(context);
     return ConstrainedBox(
       constraints: BoxConstraints(
-        maxWidth: ResponsiveLayout.isDesktop(context) ? 300 : screenWidth * 0.9,
+        maxWidth: isDesktop ? 300 : screenWidth * 0.9,
       ),
       child: Card(
         shape: RoundedRectangleBorder(

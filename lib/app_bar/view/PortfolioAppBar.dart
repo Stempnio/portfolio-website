@@ -33,43 +33,46 @@ class _PortfolioAppBarState extends State<PortfolioAppBar>
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: SizedBox(
-        height: appBarHeight,
-        child: Row(
-          children: [
-            Text(
-              "Jakub Stępień",
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge
-                  ?.copyWith(fontWeight: FontWeight.bold),
-            ),
-            const Spacer(),
-            ResponsiveLayout.isDesktop(context)
-                ? Row(children: widget.navItems)
-                : BlocBuilder<PortfolioAppBarCubit, PortfolioAppBarState>(
-                    builder: (context, state) {
-                      return GestureDetector(
-                        child: AnimatedIcon(
-                          icon: AnimatedIcons.menu_close,
-                          progress: menuIconAnimation,
-                        ),
-                        onTap: () {
-                          context
-                              .read<PortfolioAppBarCubit>()
-                              .toggleMobileMenu();
-                          if (state.mobileMenuVisible) {
-                            animationController.reverse();
-                          } else {
-                            animationController.forward();
-                          }
-                        },
-                      );
-                    },
-                  ),
-          ],
+    final isDesktop = ResponsiveLayout.isDesktop(context);
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SizedBox(
+          height: appBarHeight,
+          child: Row(
+            children: [
+              Text(
+                "Jakub Stępień",
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge
+                    ?.copyWith(fontWeight: FontWeight.bold),
+              ),
+              const Spacer(),
+              isDesktop
+                  ? Row(children: widget.navItems)
+                  : BlocBuilder<PortfolioAppBarCubit, PortfolioAppBarState>(
+                      builder: (context, state) {
+                        return GestureDetector(
+                          child: AnimatedIcon(
+                            icon: AnimatedIcons.menu_close,
+                            progress: menuIconAnimation,
+                          ),
+                          onTap: () {
+                            context
+                                .read<PortfolioAppBarCubit>()
+                                .toggleMobileMenu();
+                            if (state.mobileMenuVisible) {
+                              animationController.reverse();
+                            } else {
+                              animationController.forward();
+                            }
+                          },
+                        );
+                      },
+                    ),
+            ],
+          ),
         ),
       ),
     );

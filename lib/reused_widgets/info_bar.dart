@@ -12,6 +12,7 @@ class InfoBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final isDesktop = ResponsiveLayout.isDesktop(context);
 
     return Container(
       decoration: const BoxDecoration(
@@ -21,9 +22,8 @@ class InfoBar extends StatelessWidget {
       ),
       child: Padding(
         padding: EdgeInsets.symmetric(
-          vertical: ResponsiveLayout.isDesktop(context) ? 20 : 10,
-          horizontal:
-              ResponsiveLayout.isDesktop(context) ? screenWidth * 0.12 : 10,
+          vertical: isDesktop ? 20 : 10,
+          horizontal: isDesktop ? screenWidth * 0.12 : 10,
         ),
         child: body,
       ),

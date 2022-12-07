@@ -6,10 +6,10 @@ class AboutMe extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDesktop = ResponsiveLayout.isDesktop(context);
     return Padding(
-      padding: EdgeInsets.symmetric(
-          vertical: ResponsiveLayout.isDesktop(context) ? 30 : 5,
-          horizontal: 10),
+      padding:
+          EdgeInsets.symmetric(vertical: isDesktop ? 30 : 5, horizontal: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -22,7 +22,7 @@ class AboutMe extends StatelessWidget {
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 SizedBox(
-                  height: ResponsiveLayout.isDesktop(context) ? 40 : 20,
+                  height: isDesktop ? 40 : 20,
                 ),
                 ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 250),
@@ -37,7 +37,7 @@ class AboutMe extends StatelessWidget {
               ],
             ),
           ),
-          if (ResponsiveLayout.isDesktop(context)) const SizedBox(width: 60),
+          if (isDesktop) const SizedBox(width: 60),
           Flexible(
             child: ClipOval(
               child: Container(

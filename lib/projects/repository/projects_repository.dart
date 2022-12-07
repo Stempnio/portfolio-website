@@ -18,7 +18,7 @@ class ProjectsRepository {
     for (var repoName in repoNames) {
       var repo = await _githubInstance.repositories
           .getRepository(RepositorySlug(user, repoName));
-      var imageAssetName = "${repo.name}-logo.png";
+      var imageAssetName = "assets/${repo.name}-logo.png";
       var project = Project(repository: repo, imageAssetName: imageAssetName);
       projects.add(project);
     }

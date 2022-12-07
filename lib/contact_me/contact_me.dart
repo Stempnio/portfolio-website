@@ -20,6 +20,8 @@ class ContactMe extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDesktop = ResponsiveLayout.isDesktop(context);
+
     return InfoBar(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,7 +51,7 @@ class ContactMe extends StatelessWidget {
             runSpacing: 15,
             children: [
               IconTile(
-                showText: ResponsiveLayout.isDesktop(context),
+                showText: isDesktop,
                 icon: FontAwesomeIcons.linkedin,
                 iconColor: Colors.white,
                 text: "Linkedin",
@@ -59,7 +61,7 @@ class ContactMe extends StatelessWidget {
                     _launchUrl("https://www.linkedin.com/in/jakub--stepien/"),
               ),
               IconTile(
-                showText: ResponsiveLayout.isDesktop(context),
+                showText: isDesktop,
                 icon: FontAwesomeIcons.twitter,
                 iconColor: Colors.white,
                 text: "Twitter",
@@ -68,7 +70,7 @@ class ContactMe extends StatelessWidget {
                 onTap: () => _launchUrl("https://www.twitter.com/_Stempnio"),
               ),
               IconTile(
-                showText: ResponsiveLayout.isDesktop(context),
+                showText: isDesktop,
                 icon: FontAwesomeIcons.github,
                 iconColor: Colors.white,
                 text: "Github",
