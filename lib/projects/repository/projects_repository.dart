@@ -1,6 +1,6 @@
 import 'package:github/github.dart';
 
-import '../model/project.dart';
+import 'package:portfolio_website/projects/model/project.dart';
 
 class ProjectsRepository {
   ProjectsRepository({
@@ -14,12 +14,12 @@ class ProjectsRepository {
   final GitHub _githubInstance;
 
   Future<List<Project>> getProjects() async {
-    List<Project> projects = [];
-    for (var repoName in repoNames) {
-      var repo = await _githubInstance.repositories
+    final projects = <Project>[];
+    for (final repoName in repoNames) {
+      final repo = await _githubInstance.repositories
           .getRepository(RepositorySlug(user, repoName));
-      var imageAssetName = "assets/${repo.name}-logo.png";
-      var project = Project(repository: repo, imageAssetName: imageAssetName);
+      final imageAssetName = 'assets/${repo.name}-logo.png';
+      final project = Project(repository: repo, imageAssetName: imageAssetName);
       projects.add(project);
     }
     return projects;

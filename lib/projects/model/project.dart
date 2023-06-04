@@ -11,14 +11,9 @@ class Project {
 }
 
 extension BlankProjects on Project {
-  static Project blankProject() =>
-      Project(repository: Repository(), imageAssetName: "");
+  static Project _createBlankProject() =>
+      Project(repository: Repository(), imageAssetName: '');
 
-  static List<Project> getBlankProjects(int number) {
-    List<Project> result = [];
-    for (var i = 0; i < number; i++) {
-      result.add(blankProject());
-    }
-    return result;
-  }
+  static List<Project> generateBlankProjects(int amount) =>
+      List.generate(amount, (index) => _createBlankProject());
 }
