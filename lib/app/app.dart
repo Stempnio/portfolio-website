@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio_website/about_me/about_me.dart';
 import 'package:portfolio_website/app_bar/app_bar.dart';
+import 'package:portfolio_website/constants.dart';
 import 'package:portfolio_website/contact_me/contact_me.dart';
+import 'package:portfolio_website/navigation/navigation.dart';
 import 'package:portfolio_website/projects/view/projects.dart';
 import 'package:portfolio_website/responsive_layout.dart';
 import 'package:portfolio_website/tech_stack/tech_stack.dart';
-import 'package:scroll_to_index/scroll_to_index.dart';
-import 'package:portfolio_website/navigation/navigation.dart';
-import 'package:portfolio_website/constants.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -17,9 +17,9 @@ class App extends StatefulWidget {
   State<App> createState() => _AppState();
 }
 
-class _AppState extends State<App> with SingleTickerProviderStateMixin {
+class _AppState extends State<App> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
-  final scrollController = AutoScrollController();
+  final scrollController = ItemScrollController();
 
   bool mobileMenuHidden = true;
 
@@ -31,28 +31,29 @@ class _AppState extends State<App> with SingleTickerProviderStateMixin {
   ];
 
   void _scrollTo(int index) {
-    scrollController.scrollToIndex(
-      index,
-      preferPosition: AutoScrollPosition.begin,
+    scrollController.scrollTo(
+      index: index,
+      duration: const Duration(milliseconds: 400),
+      curve: Curves.easeInOut,
     );
   }
 
   List<Widget> navItems() => [
         NavButton(
           scrollTo: () => _scrollTo(0),
-          text: "About me",
+          text: 'About me',
         ),
         NavButton(
           scrollTo: () => _scrollTo(1),
-          text: "Tech stack",
+          text: 'Tech stack',
         ),
         NavButton(
           scrollTo: () => _scrollTo(2),
-          text: "Projects",
+          text: 'Projects',
         ),
         ElevatedNavButton(
           scrollTo: () => _scrollTo(3),
-          text: "Contact",
+          text: 'Contact',
         ),
       ];
 
@@ -73,16 +74,12 @@ class _AppState extends State<App> with SingleTickerProviderStateMixin {
         ),
         body: Stack(
           children: [
-            ListView.builder(
-              controller: scrollController,
+            ScrollablePositionedList.builder(
+              physics: const ClampingScrollPhysics(),
+              itemScrollController: scrollController,
               itemCount: bodyItems.length,
               itemBuilder: (context, index) {
-                return AutoScrollTag(
-                  key: ValueKey(index),
-                  controller: scrollController,
-                  index: index,
-                  child: bodyItems[index],
-                );
+                return bodyItems[index];
               },
             ),
             BlocBuilder<PortfolioAppBarCubit, PortfolioAppBarState>(
@@ -109,11 +106,5 @@ class _AppState extends State<App> with SingleTickerProviderStateMixin {
       ),
       debugShowCheckedModeBanner: false,
     );
-  }
-
-  @override
-  void dispose() {
-    scrollController.dispose();
-    super.dispose();
   }
 }
