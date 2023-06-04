@@ -5,10 +5,7 @@ import 'package:portfolio_website/constants.dart';
 import 'package:portfolio_website/responsive_layout.dart';
 
 class PortfolioAppBar extends StatefulWidget {
-  const PortfolioAppBar({
-    Key? key,
-    required this.navItems,
-  }) : super(key: key);
+  const PortfolioAppBar({super.key, required this.navItems});
   final List<Widget> navItems;
 
   @override
@@ -36,45 +33,50 @@ class _PortfolioAppBarState extends State<PortfolioAppBar>
     final isDesktop = ResponsiveLayout.isDesktop(context);
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8),
         child: SizedBox(
           height: appBarHeight,
           child: Row(
             children: [
               Text(
-                "Jakub Stępień",
+                'Jakub Stępień',
                 style: Theme.of(context)
                     .textTheme
                     .titleLarge
                     ?.copyWith(fontWeight: FontWeight.bold),
               ),
               const Spacer(),
-              isDesktop
-                  ? Row(children: widget.navItems)
-                  : BlocBuilder<PortfolioAppBarCubit, PortfolioAppBarState>(
-                      builder: (context, state) {
-                        return GestureDetector(
-                          child: AnimatedIcon(
-                            icon: AnimatedIcons.menu_close,
-                            progress: menuIconAnimation,
-                          ),
-                          onTap: () {
-                            context
-                                .read<PortfolioAppBarCubit>()
-                                .toggleMobileMenu();
-                            if (state.mobileMenuVisible) {
-                              animationController.reverse();
-                            } else {
-                              animationController.forward();
-                            }
-                          },
-                        );
-                      },
-                    ),
+              if (isDesktop)
+                Row(children: widget.navItems)
+              else
+                BlocBuilder<PortfolioAppBarCubit, PortfolioAppBarState>(
+                  builder: (context, state) {
+                    return GestureDetector(
+                      child: AnimatedIcon(
+                        icon: AnimatedIcons.menu_close,
+                        progress: menuIconAnimation,
+                      ),
+                      onTap: () => _onPressedMenuIcon(
+                        context,
+                        isMobileMenuVisible: state.mobileMenuVisible,
+                      ),
+                    );
+                  },
+                ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  void _onPressedMenuIcon(
+    BuildContext context, {
+    required bool isMobileMenuVisible,
+  }) {
+    context.read<PortfolioAppBarCubit>().toggleMobileMenu();
+    isMobileMenuVisible
+        ? animationController.reverse()
+        : animationController.forward();
   }
 }
