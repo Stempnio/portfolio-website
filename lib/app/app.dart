@@ -68,31 +68,35 @@ class _AppState extends State<App> {
           ThemeData(brightness: Brightness.dark).textTheme,
         ),
       ),
-      home: Scaffold(
-        key: scaffoldKey,
-        appBar: PreferredSize(
-          preferredSize: const Size(
-            double.infinity,
-            appBarHeight,
-          ),
-          child: PortfolioAppBar(
-            navItems: navItems(),
-          ),
-        ),
-        body: Stack(
-          children: [
-            ScrollablePositionedList.builder(
-              physics: const ClampingScrollPhysics(),
-              itemScrollController: scrollController,
-              itemCount: bodyItems.length,
-              itemBuilder: (context, index) {
-                return bodyItems[index];
-              },
+      home: Title(
+        color: Colors.blue,
+        title: 'Jakub Stępień',
+        child: Scaffold(
+          key: scaffoldKey,
+          appBar: PreferredSize(
+            preferredSize: const Size(
+              double.infinity,
+              appBarHeight,
             ),
-            _MobileAppBar(
-              items: navItems(),
+            child: PortfolioAppBar(
+              navItems: navItems(),
             ),
-          ],
+          ),
+          body: Stack(
+            children: [
+              ScrollablePositionedList.builder(
+                physics: const ClampingScrollPhysics(),
+                itemScrollController: scrollController,
+                itemCount: bodyItems.length,
+                itemBuilder: (context, index) {
+                  return bodyItems[index];
+                },
+              ),
+              _MobileAppBar(
+                items: navItems(),
+              ),
+            ],
+          ),
         ),
       ),
       debugShowCheckedModeBanner: false,
