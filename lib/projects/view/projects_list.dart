@@ -4,13 +4,13 @@ import 'package:url_launcher/url_launcher.dart';
 
 class ProjectsList extends StatelessWidget {
   const ProjectsList({
-    Key? key,
+    super.key,
     required this.projects,
-    this.loading = false,
-  }) : super(key: key);
+    this.isLoading = false,
+  });
 
   final List<Project> projects;
-  final bool loading;
+  final bool isLoading;
   @override
   Widget build(BuildContext context) {
     return Wrap(
@@ -19,13 +19,14 @@ class ProjectsList extends StatelessWidget {
       children: projects
           .map(
             (project) => ProjectCard(
-              name: loading
-                  ? "Loading"
+              name: isLoading
+                  ? 'Loading'
                   : project.repository.name.replaceAll('-', ' '),
-              description: loading ? "" : project.repository.description,
-              imageAssetName: loading ? "" : project.imageAssetName,
-              btnOnTap: () => launchUrl(Uri.parse(project.repository.htmlUrl)),
-              loading: loading,
+              description: isLoading ? '' : project.repository.description,
+              language: isLoading ? '' : project.repository.language,
+              imageAssetName: isLoading ? '' : project.imageAssetName,
+              onPressed: () => launchUrl(Uri.parse(project.repository.htmlUrl)),
+              loading: isLoading,
             ),
           )
           .toList(),

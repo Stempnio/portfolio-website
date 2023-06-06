@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:portfolio_website/projects/bloc/projects_bloc.dart';
 import 'package:portfolio_website/projects/view/projects_list.dart';
 import 'package:portfolio_website/responsive_layout.dart';
-import 'package:portfolio_website/projects/bloc/projects_bloc.dart';
 
 class Projects extends StatelessWidget {
-  const Projects({Key? key}) : super(key: key);
+  const Projects({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,18 +15,21 @@ class Projects extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(
           vertical: 50, horizontal: isDesktop ? screenWidth * 0.1 : 0),
-      child: Container(
+      child: DecoratedBox(
         decoration: BoxDecoration(
-          gradient:
-              const LinearGradient(colors: [Colors.grey, Colors.blueGrey]),
+          gradient: const LinearGradient(
+            colors: [Colors.white10, Colors.black26],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomRight,
+          ),
           borderRadius: BorderRadius.circular(30),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(20),
           child: Column(
             children: [
               const Text(
-                "Projects",
+                'Projects',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 30,
@@ -38,14 +41,14 @@ class Projects extends StatelessWidget {
                   if (state.status == ProjectsStatus.loading) {
                     return ProjectsList(
                       projects: state.projects,
-                      loading: true,
+                      isLoading: true,
                     );
                   } else if (state.status == ProjectsStatus.success) {
                     // return Text("success");
                     return ProjectsList(projects: state.projects);
                   } else {
                     //TODO: failure screen
-                    return const Text("failure");
+                    return const Text('failure');
                   }
                 },
               ),

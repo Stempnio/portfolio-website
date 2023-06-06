@@ -32,38 +32,40 @@ class _PortfolioAppBarState extends State<PortfolioAppBar>
   Widget build(BuildContext context) {
     final isDesktop = ResponsiveLayout.isDesktop(context);
     return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.all(8),
-        child: SizedBox(
-          height: appBarHeight,
-          child: Row(
-            children: [
-              Text(
-                'Jakub Stępień',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleLarge
-                    ?.copyWith(fontWeight: FontWeight.bold),
-              ),
-              const Spacer(),
-              if (isDesktop)
-                Row(children: widget.navItems)
-              else
-                BlocBuilder<PortfolioAppBarCubit, PortfolioAppBarState>(
-                  builder: (context, state) {
-                    return GestureDetector(
-                      child: AnimatedIcon(
-                        icon: AnimatedIcons.menu_close,
-                        progress: menuIconAnimation,
-                      ),
-                      onTap: () => _onPressedMenuIcon(
-                        context,
-                        isMobileMenuVisible: state.mobileMenuVisible,
-                      ),
-                    );
-                  },
+      child: ColoredBox(
+        color: Colors.black12,
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: SizedBox(
+            height: appBarHeight,
+            child: Row(
+              children: [
+                Text(
+                  'JS',
+                  style: isDesktop
+                      ? Theme.of(context).textTheme.headlineMedium
+                      : Theme.of(context).textTheme.headlineSmall,
                 ),
-            ],
+                const Spacer(),
+                if (isDesktop)
+                  Row(children: widget.navItems)
+                else
+                  BlocBuilder<PortfolioAppBarCubit, PortfolioAppBarState>(
+                    builder: (context, state) {
+                      return GestureDetector(
+                        child: AnimatedIcon(
+                          icon: AnimatedIcons.menu_close,
+                          progress: menuIconAnimation,
+                        ),
+                        onTap: () => _onPressedMenuIcon(
+                          context,
+                          isMobileMenuVisible: state.mobileMenuVisible,
+                        ),
+                      );
+                    },
+                  ),
+              ],
+            ),
           ),
         ),
       ),

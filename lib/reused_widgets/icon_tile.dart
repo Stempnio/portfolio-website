@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio_website/responsive_layout.dart';
 
 class IconTile extends StatefulWidget {
   IconTile({
-    Key? key,
+    super.key,
     required this.icon,
     required this.iconColor,
     required this.text,
@@ -10,8 +11,7 @@ class IconTile extends StatefulWidget {
     required this.backgroundColor,
     this.showText = true,
     VoidCallback? onTap,
-  })  : onTap = onTap ?? (() {}),
-        super(key: key);
+  }) : onTap = onTap ?? (() {});
 
   final IconData icon;
   final Color iconColor;
@@ -30,6 +30,7 @@ class _IconTileState extends State<IconTile> {
 
   @override
   Widget build(BuildContext context) {
+    ;
     return AnimatedContainer(
       decoration: BoxDecoration(
         color: isHover
@@ -45,28 +46,29 @@ class _IconTileState extends State<IconTile> {
           isHover = val;
         }),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(15),
           child: FittedBox(
             child: Row(
-              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Icon(
                   widget.icon,
                   color: widget.iconColor,
                 ),
                 Visibility(
-                    visible: widget.showText,
-                    child: Row(
-                      children: [
-                        const SizedBox(width: 10),
-                        Text(
-                          widget.text,
-                          style: TextStyle(
-                            color: widget.textColor,
-                          ),
+                  visible: widget.showText,
+                  child: Row(
+                    children: [
+                      const SizedBox(width: 10),
+                      Text(
+                        widget.text,
+                        style: TextStyle(
+                          fontSize:
+                              ResponsiveLayout.isDesktop(context) ? 18 : 16,
                         ),
-                      ],
-                    ))
+                      ),
+                    ],
+                  ),
+                )
               ],
             ),
           ),

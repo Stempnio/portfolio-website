@@ -6,12 +6,14 @@ import 'package:portfolio_website/projects/bloc/projects_bloc.dart';
 import 'package:portfolio_website/projects/repository/projects_repository.dart';
 
 void main() {
-  const user = "Stempnio";
+  const user = 'Stempnio';
   const repoNames = [
     'password-keeper',
     'review-exchange',
     'airport-management-system',
     'ml-tumor-classification',
+    'space-dailies',
+    'pesel-validator',
     'pseudo-random-number-generators',
     'file-versioning-tool',
   ];

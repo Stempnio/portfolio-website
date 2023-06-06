@@ -1,7 +1,17 @@
 import 'package:flutter/cupertino.dart';
 
+extension StringX on String {
+  String toTitleCase() => split(' ')
+      .map(
+        (word) => word.isNotEmpty
+            ? '${word[0].toUpperCase()}${word.substring(1)}'
+            : '',
+      )
+      .join(' ');
+}
+
 class VerticalSpace extends StatelessWidget {
-  const VerticalSpace({Key? key, required this.value}) : super(key: key);
+  const VerticalSpace({super.key, required this.value});
 
   final double value;
 
@@ -12,7 +22,7 @@ class VerticalSpace extends StatelessWidget {
 }
 
 class HorizontalSpace extends StatelessWidget {
-  const HorizontalSpace({Key? key, required this.value}) : super(key: key);
+  const HorizontalSpace({super.key, required this.value});
 
   final double value;
 

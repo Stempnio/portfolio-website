@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio_website/about_me/about_me.dart';
 import 'package:portfolio_website/app_bar/app_bar.dart';
 import 'package:portfolio_website/constants.dart';
@@ -61,6 +62,12 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Jakub Stępień',
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        textTheme: GoogleFonts.merriweatherSansTextTheme(
+          ThemeData(brightness: Brightness.dark).textTheme,
+        ),
+      ),
       home: Scaffold(
         key: scaffoldKey,
         appBar: PreferredSize(
@@ -82,29 +89,41 @@ class _AppState extends State<App> {
                 return bodyItems[index];
               },
             ),
-            BlocBuilder<PortfolioAppBarCubit, PortfolioAppBarState>(
-              builder: (context, state) {
-                return AnimatedOpacity(
-                  opacity: state.mobileMenuVisible &&
-                          ResponsiveLayout.isMobile(context)
-                      ? 1
-                      : 0,
-                  duration: const Duration(milliseconds: 400),
-                  child: Container(
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: navItems(),
-                    ),
-                  ),
-                );
-              },
+            _MobileAppBar(
+              items: navItems(),
             ),
           ],
         ),
       ),
       debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class _MobileAppBar extends StatelessWidget {
+  const _MobileAppBar({required this.items});
+
+  final List<Widget> items;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<PortfolioAppBarCubit, PortfolioAppBarState>(
+      builder: (context, state) {
+        return AnimatedOpacity(
+          opacity: state.mobileMenuVisible && ResponsiveLayout.isMobile(context)
+              ? 1
+              : 0,
+          duration: const Duration(milliseconds: 400),
+          child: Container(
+            color: Theme.of(context).scaffoldBackgroundColor,
+            padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: items,
+            ),
+          ),
+        );
+      },
     );
   }
 }
